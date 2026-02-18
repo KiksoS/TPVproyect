@@ -23,55 +23,55 @@ $tickRepository = new TicketRepository;
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 	<link href="./Assets/css/index.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-	
+
 	<title>La vaquita</title>
 </head>
 
-<body class="vh-min-100 d-flex flex-column">
+<body>
 	<header>
 		<!-- nav -->
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg bg-dark lateral" data-bs-theme="dark">
+			<div class="container-fluid">
 
-		<a class="navbar-brand" href="#">
-			<img src="./Assets/imgs/mesas/logo2.png" alt="Logo" width="55" height="55">
-		</a>
+				<a class="navbar-brand" href="#">
+					<img src="./Assets/imgs/mesas/logo2.png" alt="Logo" width="55" height="55">
+				</a>
 
-		<button class="navbar-toggler" type="button"
-			data-bs-toggle="collapse"
-			data-bs-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent"
-			aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
 
-				<li class="nav-item">
-					<a class="nav-link active" href="index.php">INICIO</a>
-				</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="index.php">INICIO</a>
+						</li>
 
-				<li class="nav-item">
-					<a class="nav-link" href="empleados.php">EMPLEADOS</a>
-				</li>
+						<li class="nav-item">
+							<a class="nav-link" href="empleados.php">EMPLEADOS</a>
+						</li>
 
-				<li class="nav-item">
-					<a class="nav-link" href="caja.php" onclick="return false;">CAJA</a>
-				</li>
+						<li class="nav-item">
+							<a class="nav-link" href="caja.php" onclick="return false;">CAJA</a>
+						</li>
 
-				<li class="nav-item ms-lg-3">
-					<a class="nav-link p-0" href="destroySession.php">
-						<img src="./Assets/imgs/log-out.png" alt="Logout" width="40" height="40">
-					</a>
-				</li>
+						<li class="nav-item ms-lg-3">
+							<a class="nav-link p-0" href="destroySession.php">
+								<img src="./Assets/imgs/log-out.png" alt="Logout" width="40" height="40">
+							</a>
+						</li>
 
-			</ul>
-		</div>
+					</ul>
+				</div>
 
-	</div>
-</nav>
+			</div>
+		</nav>
 
 	</header>
 
@@ -115,22 +115,22 @@ $tickRepository = new TicketRepository;
 							<h3 class="m-0 "> MESAS </h3>
 						</div>
 						<?php for ($i = 1; $i <= 10; $i++): ?>
-						<div class="col-6 col-lg-4 mesa">
-							<a href="/mesa.php?mesa=<?php echo $i ?>T">
-								<img class="img-fluid" src="./Assets/imgs/mesas/<?php echo $i ?>.png" alt="mesa <?php echo $i ?>">
-							</a>
-						</div>
+							<div class="col-6 col-lg-4 mesa">
+								<a href="/mesa.php?mesa=<?php echo $i ?>T">
+									<img class="img-fluid" src="./Assets/imgs/mesas/<?php echo $i ?>.png" alt="mesa <?php echo $i ?>">
+								</a>
+							</div>
 						<?php endfor; ?>
 
 
 					</div>
 					<div class="row gy-1 py-1">
 						<?php for ($i = 1; $i <= 10; $i++): ?>
-						<div class="col-6 col-lg-4 mesa">
-							<a href="/mesa.php?mesa=<?php echo $i ?>T">
-								<img class="img-fluid" src="./Assets/imgs/mesas/<?php echo $i ?>.png" alt="mesa <?php echo $i ?>">
-							</a>
-						</div>
+							<div class="col-6 col-lg-4 mesa">
+								<a href="/mesa.php?mesa=<?php echo $i ?>T">
+									<img class="img-fluid" src="./Assets/imgs/mesas/<?php echo $i ?>.png" alt="mesa <?php echo $i ?>">
+								</a>
+							</div>
 						<?php endfor; ?>
 					</div>
 					<!-- Ticket -->
@@ -143,9 +143,9 @@ $tickRepository = new TicketRepository;
 								<?php print $tickRepository->drawPreticket($idTicket) ?>
 
 
-								<?php  if (!empty($tickRepository->getPreticket($idTicket))):
-										print "<button class='btn btn-dark bticket' id='open-popup'>Detalles del ticket</button>";
-									endif; ?>
+								<?php if (!empty($tickRepository->getPreticket($idTicket))):
+									print "<button class='btn btn-dark bticket' id='open-popup'>Detalles del ticket</button>";
+								endif; ?>
 								<div class="popup-overlay"></div>
 								<div class="popup">
 									<button id="close-popup" style="float:right;margin-bottom:20px;">X</button>

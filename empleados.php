@@ -37,7 +37,7 @@ $result = mysqli_query($conexion, $sql);
     <title>La vaquita</title>
 </head>
 
-<body class="vh-100">
+<body>
 <nav class="navbar navbar-expand-lg bg-dark lateral" data-bs-theme="dark">
 			<div class="container-fluid">
 				<div class="navbar-brand" href="#">
@@ -67,46 +67,48 @@ $result = mysqli_query($conexion, $sql);
 	</header>
 
     <!-- MAIN -->
-    <main class="vh-100">
-        <div class="container-fluid">
-            <div class="col-12">
-                <div class="container-fluid d-flex justify-content-center">
-                    <table>
-                        <tr class="headerTabla">
-                            <td>Nombre</td>
-                            <td>Apellidos</td>
-                            <td>Correo</td>
-                            <td>Direccion</td>
-                            <td>Acciones</td>
-                        </tr>
-
-                        <?php
-                        while ($mostrar = mysqli_fetch_array($result)) {
-                            ?>
-                            <tr>
-                                <td><?php echo $mostrar['nombre'] ?></td>
-                                <td><?php echo $mostrar['apellidos'] ?></td>
-                                <td><?php echo $mostrar['correo'] ?></td>
-                                <td><?php echo $mostrar['direccion'] ?></td>
-                                <td>
-                                    <form method="POST" action="editar.php">
-                                        <input type="hidden" name="cod_empleado" value="<?php echo $mostrar['cod_empleado']; ?>">
-                                        <button type="submit" class="btn btn-dark btn-sm buttonEmpl">
-                                            <i class="fas fa-edit"></i> Modificar
-                                        </button>
-                                    </form>
-                                    <form method="POST" action="?delete_id=<?php echo $mostrar['cod_empleado']; ?>">
-                                        <button type="submit" class="btn borrar btn-sm buttonEmpl buttBorrar">
-                                            <i class="fas fa-trash"></i> Borrar
-                                        </button>
-                                    </form>
-                                </td>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="container-fluid d-flex justify-content-center">
+                        <table>
+                            <tr class="headerTabla">
+                                <td>Nombre</td>
+                                <td>Apellidos</td>
+                                <td>Correo</td>
+                                <td>Direccion</td>
+                                <td>Acciones</td>
                             </tr>
-                        <?php
-                        }
-                        ?>
-                    </table>
 
+                            <?php
+                            while ($mostrar = mysqli_fetch_array($result)) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $mostrar['nombre'] ?></td>
+                                    <td><?php echo $mostrar['apellidos'] ?></td>
+                                    <td><?php echo $mostrar['correo'] ?></td>
+                                    <td><?php echo $mostrar['direccion'] ?></td>
+                                    <td>
+                                        <form method="POST" action="editar.php">
+                                            <input type="hidden" name="cod_empleado" value="<?php echo $mostrar['cod_empleado']; ?>">
+                                            <button type="submit" class="btn btn-dark btn-sm buttonEmpl">
+                                                <i class="fas fa-edit"></i> Modificar
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="?delete_id=<?php echo $mostrar['cod_empleado']; ?>">
+                                            <button type="submit" class="btn borrar btn-sm buttonEmpl buttBorrar">
+                                                <i class="fas fa-trash"></i> Borrar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </table>
+
+                    </div>
                 </div>
             </div>
         </div>
