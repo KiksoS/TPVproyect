@@ -143,7 +143,9 @@ $tickRepository = new TicketRepository;
 								<?php print $tickRepository->drawPreticket($idTicket) ?>
 
 
-								<button class="btn btn-dark bticket" id="open-popup">Detalles del ticket</button>
+								<?php  if (!empty($tickRepository->getPreticket($idTicket))):
+										print "<button class='btn btn-dark bticket' id='open-popup'>Detalles del ticket</button>";
+									endif; ?>
 								<div class="popup-overlay"></div>
 								<div class="popup">
 									<button id="close-popup" style="float:right;margin-bottom:20px;">X</button>

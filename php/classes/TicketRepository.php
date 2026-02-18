@@ -17,7 +17,7 @@ class TicketRepository extends Connection
     }
 
 
-    public function findBy(int $cod_ticket): array
+/*     public function findBy(int $cod_ticket): array
     {
         $result = [];
         $stmt = $this->conn->query("SELECT * FROM ticket WHERE cod_ticket= $cod_ticket");
@@ -26,7 +26,7 @@ class TicketRepository extends Connection
         }
         return $result;
     }
-
+ */
 
     public function insertTicket(string $mesa): Ticket
     {
@@ -62,6 +62,16 @@ class TicketRepository extends Connection
         } else {
             $stmt = $this->conn->query("UPDATE producto_servido SET cantidad = cantidad + 1 WHERE cod_producto = $cod_producto AND cod_ticket = $cod_ticket;");
         }
+    }
+
+    public function getPreticket(int $cod_ticket): array
+    {
+        $result = [];
+        $stmt = $this->conn->query("SELECT * FROM producto_servido WHERE cod_ticket= $cod_ticket");
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $result[] = [$row['cod_producto'], $row['cod_ticket'], $row['cantidad']];
+        }
+        return $result;
     }
 
 
