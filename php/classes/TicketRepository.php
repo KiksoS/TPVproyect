@@ -77,7 +77,7 @@ class TicketRepository extends Connection
                 $output .= '<div class="col-2"> ' . $row["cantidad"] . '</div>';
 
                 $output .= '<div class="col-3">';
-                $output .= '<form method="POST" action="restarProducto.php" style="display:inline;">';
+                $output .= '<form method="POST" action="restarProduct.php" style="display:inline;">';
                 $output .= '<input type="hidden" name="cod_producto" value="' . $row["cod_producto"] . '">';
                 $output .= '<input type="hidden" name="cod_ticket" value="' . $row["cod_ticket"] . '">';
                 $output .= '<button type="submit" class="btn btn-dark mt-0 py-1 "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
@@ -89,6 +89,33 @@ class TicketRepository extends Connection
             }
         }
         return $output;
+    }
+
+    public function restarProduct(int $cod_producto, int $cod_ticket)
+    {
+        $sql = "UPDATE producto_servido 
+                SET cantidad = cantidad - 1 
+                WHERE cod_producto = :codProducto
+                AND cod_ticket = :codTicket
+                AND cantidad > 1";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ':codProducto' => $cod_producto,
+            ':codTicket' => $cod_ticket
+        ]);
+
+        if ($stmt->rowCount() === 0) {
+            $delete = "DELETE FROM producto_servido 
+                       WHERE cod_producto = :codProducto
+                       AND cod_ticket = :codTicket";
+
+            $stmt = $this->conn->prepare($delete);
+            $stmt->execute([
+                ':codProducto' => $cod_producto,
+                ':codTicket' => $cod_ticket
+            ]);
+        }
     }
 
     public function testTicket(string $mesa)
@@ -119,7 +146,7 @@ class TicketRepository extends Connection
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             if ($idTicket == $row["cod_ticket"]) {
                 $output .= "";
-                $output .= "<p>" . $row["nombre"] . " -- " . $row["cantidad"] . $row["precio"] . "€" . "</p>";
+                $output .= "<p>" . $row["nombre"] . " x" . $row["cantidad"]." -- " .$row["precio"] . "€" . "</p>";
                 $subtotal = $row["cantidad"] * $row["precio"];
                 $total += $subtotal; // Agrega el subtotal al total
 
