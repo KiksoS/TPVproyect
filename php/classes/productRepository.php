@@ -37,6 +37,17 @@ class productRepository extends Connection
         return $data;
     }
 
+
+    public function getAllCategory(): array
+    {
+        $data = [];
+        $stmt = $this->conn->query("SELECT DISTINCT categoria FROM producto");
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $data[] = $row["categoria"];
+        }
+        return $data;
+    }
+
     public function drawProductCard(array $data): string
     {
 

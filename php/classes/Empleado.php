@@ -11,7 +11,7 @@ class Empleado extends Connection
     private string $contrasenya;
     private string $foto;
 
-    public function __construct(int $cod_empleado, string $nombre, string $apellido, string $correo, string $direccion, string $contrasenya, string $foto)
+    public function __construct(int $cod_empleado = 0, string $nombre = "", string $apellido = "", string $correo = "", string $direccion = "", string $contrasenya = "", string $foto = "")
     {
         $this->cod_empleado = $cod_empleado;
         $this->nombre = $nombre;

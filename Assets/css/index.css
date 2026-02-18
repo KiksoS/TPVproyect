@@ -17,14 +17,6 @@
   
 }
 
-.lateral a {
-  position: relative;
-  display: block;
-  padding: 5px;
-  color: #ffffff;
-  text-decoration: none;
-  margin-left: 15px;
-}
 
 
 .lateral a::before {
@@ -45,11 +37,12 @@
   transform: scaleX(1);
 }
 
+.lateral a:hover {
+  color: #c7094f;
+}
+
 
 /* --------------------------------aside---------------------------------- */
-.ticket {
-  padding-top: 20px;
-}
 
 .titulo2 {
   height: 50px;
@@ -72,122 +65,6 @@
 .mesa a img {
   height: 45px;
   width: 45px;
-}
-
-/* --------------------------------calculadora---------------------------------- */
-
-
-.lateral li {
-  display: flex;
-  width: 100%;
-  text-decoration: none;
-  text-transform: uppercase;
-  justify-content: center;
-  padding-left: 10px;
-}
-
-.lateral a {
-  position: relative;
-  display: block;
-  padding: 5px;
-  color: #ffffff;
-  text-decoration: none;
-
-}
-
-.lateral a::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, #ffffff, #dfa9bd, #e9b6c9);
-  z-index: 1;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.25s ease-in-out;
-}
-
-.lateral a:hover::before {
-  transform: scaleX(1);
-}
-
-/* --------------------------------calculadora---------------------------------- */
-
-.calculator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fcfbfb;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  padding: 22px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  height: 500px;
-}
-
-.result {
-  width: 100%;
-  height: 60px;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  font-size: 24px;
-  text-align: right;
-  padding: 5px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.keypad {
-  margin-top: 5px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.key {
-  margin-top: 10px;
-  flex: 35 35 35px;
-  height: 45px;
-  font-size: 30px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.key:hover {
-  background-color: #e6e6e6;
-}
-
-.key.operator {
-  background-color: #f2f2f2;
-}
-
-
-.key.equal {
-  background-color: rgb(25, 25, 25);
-  color: #fff;
-  border: none;
-  flex: 2;
-}
-
-.key .c {
-  flex: 3;
-}
-
-
-.key.equal:hover {
-  transition: background-color 0.3s ease;
-}
-
-.key.zero {
-  flex-basis: 120px;
-  flex: 2;
 }
 
 
@@ -333,13 +210,4 @@ button {
 
   text-align: center; font-size: 40px;
 
-}
-
-.ticket{
-  padding-top: 20px;
-  margin-left: 2px;
-}
-
-.bticket{
-  margin-top: 40px;
 }

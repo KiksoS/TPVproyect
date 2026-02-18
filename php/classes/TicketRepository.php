@@ -65,16 +65,26 @@ class TicketRepository extends Connection
     }
 
 
-    public function drawPreticket(int $idTicket):string
+    public function drawPreticket(int $idTicket): string
     {
         $output = "";
-        $sql = "SELECT producto.nombre, producto_servido.cantidad, producto_servido.cod_ticket FROM producto JOIN producto_servido ON producto.cod_producto = producto_servido.cod_producto;";
+        $sql = "SELECT producto.nombre,producto.cod_producto, producto_servido.cantidad, producto_servido.cod_ticket FROM producto JOIN producto_servido ON producto.cod_producto = producto_servido.cod_producto where producto_servido.cod_ticket = $idTicket";
         $query = $this->conn->query($sql);
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             if ($idTicket == $row["cod_ticket"]) {
-                $output .= '<div class="row">';
-                $output .= '<div class="col-md-10">' . $row["nombre"] . '</div>';
-                $output .= '<div class="col-md-2"> ' . $row["cantidad"] . '</div>';
+                $output .= '<div class="row align-items-center mb-3">';
+                $output .= '<div class="col-7">' . $row["nombre"] . '</div>';
+                $output .= '<div class="col-2"> ' . $row["cantidad"] . '</div>';
+
+                $output .= '<div class="col-3">';
+                $output .= '<form method="POST" action="restarProducto.php" style="display:inline;">';
+                $output .= '<input type="hidden" name="cod_producto" value="' . $row["cod_producto"] . '">';
+                $output .= '<input type="hidden" name="cod_ticket" value="' . $row["cod_ticket"] . '">';
+                $output .= '<button type="submit" class="btn btn-dark mt-0 py-1 "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                </svg></button>';
+                $output .= '</form>';
+                $output .= '</div>';
                 $output .= '</div>';
             }
         }
@@ -88,7 +98,8 @@ class TicketRepository extends Connection
         return $result;
     }
 
-    public function lastIdTable(string $mesa) {
+    public function lastIdTable(string $mesa)
+    {
 
         $sql = "SELECT MAX(cod_ticket) as cod_ticket FROM ticket WHERE num_mesa = '$mesa'";
         $query = $this->conn->query($sql);
@@ -97,30 +108,29 @@ class TicketRepository extends Connection
     }
 
 
-    
-    public function drawTicket(int $idTicket):string
+
+    public function drawTicket(int $idTicket): string
     {
-        
-        $output = "";   
+
+        $output = "";
         $total = 0; // Variable para almacenar el total de los precios
         $sql = "SELECT producto.nombre,producto.precio, producto_servido.cantidad, producto_servido.cod_ticket FROM producto JOIN producto_servido ON producto.cod_producto = producto_servido.cod_producto;";
         $query = $this->conn->query($sql);
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             if ($idTicket == $row["cod_ticket"]) {
                 $output .= "";
-                $output .= "<p>" . $row["nombre"] . " -- " . $row["cantidad"] . $row["precio"]."€". "</p>";
+                $output .= "<p>" . $row["nombre"] . " -- " . $row["cantidad"] . $row["precio"] . "€" . "</p>";
                 $subtotal = $row["cantidad"] * $row["precio"];
-            $total += $subtotal; // Agrega el subtotal al total
-            
+                $total += $subtotal; // Agrega el subtotal al total
+
             }
-            
-        } 
+        }
         $output .= "<p><strong>Total: " . $total . "€</strong></p>";
         return $output;
-       
     }
 
-    public function closeTicket(int $idTicket) {
+    public function closeTicket(int $idTicket)
+    {
 
         $sql = "SELECT estado FROM ticket WHERE cod_ticket = $idTicket";
         $query = $this->conn->query($sql);
@@ -131,6 +141,3 @@ class TicketRepository extends Connection
         }
     }
 }
-
-
-

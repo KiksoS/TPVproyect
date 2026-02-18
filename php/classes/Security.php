@@ -1,9 +1,4 @@
 <?php
-/* <?php
-require_once "autoloader.php";
-$security = new Security();
-$security->checkLoggedIn();
-?> */
 class Security extends Connection
 {
     private $loginPage = "/register.php";

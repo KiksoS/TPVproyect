@@ -4,7 +4,7 @@ require_once __DIR__ . "/php/autoloader.php";
 if (count($_POST) > 0) {
 
     try {
-        $repository = new Empleado;
+        $repository = new Empleado();
 
         $data = [
             'name' => $_POST["name"],
@@ -17,7 +17,7 @@ if (count($_POST) > 0) {
         $rowsAffected = $repository->insert($data);
 
         echo "Filas afectadas: " . $rowsAffected . "</br>";
-
+        header("location: register.php");
         /* echo "<pre>";
         var_dump($result);
         echo "</pre>"; */
