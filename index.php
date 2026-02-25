@@ -27,7 +27,7 @@ $tickRepository = new TicketRepository;
 	<title>La vaquita</title>
 </head>
 
-<body>
+<body class="vh-100 d-flex flex-column overflow-hidden">
 	<header>
 		<!-- nav -->
 		<nav class="navbar navbar-expand-lg bg-dark lateral" data-bs-theme="dark">
@@ -76,92 +76,89 @@ $tickRepository = new TicketRepository;
 	</header>
 
 	<!-- MAIN -->
-	<main>
-		<div class="container">
-			<div class="row text-center min-vh-100">
-				<!-- LATERAL -->
-				<div class="col-12 col-md-3 col-lg-2 bg-dark">
-					<ul class="list-unstyled mt-4 lateral">
+	<main class="container-fluid flex-grow-1">
+		<div class="row vh-100 ">
+			<!-- LATERAL -->
+			<div class="col-12 col-md-3 col-lg-2 bg-dark">
+				<ul class="list-unstyled mt-4 lateral">
+					<?php
+					$categories = $proRepository->getAllCategory();
+					foreach ($categories as $cat) {
+						print "<li class='pt-5'><a class='text-white text-decoration-none ' href='/categoria.php?categoria=$cat'>$cat</a></li>";
+					}
+					?>
+				</ul>
+			</div>
+			<!-- CENTRO -->
+			<div class="col-12 col-md-8 col-lg-7 h-100 overflow-y-auto" style="padding-bottom: 8rem;">
+					<div class="row text-center g-4 m-0">
 						<?php
-						$categories = $proRepository->getAllCategory();
-						foreach ($categories as $cat) {
-							print "<li class='pt-5'><a class='text-white text-decoration-none ' href='/categoria.php?categoria=$cat'>$cat</a></li>";
+						if ($mesa == "") {
+
+							print "<h1> Selecciona un numero de Mesa</h1>";
+						} else {
+							print "<h2 class='mb-4'>MESA $mesa</h2>";
+							print $proRepository->drawProductCard($proRepository->getAllCategoryProduct($category));
 						}
+
 						?>
-					</ul>
+					</div>
+			</div>
+			<!-- ASIDE -->
+			<div class="col-12 col-lg-3 bg-light">
+
+				<div class="row gy-1 py-1">
+					<div class="col-12 text-center py-2">
+						<h3 class="m-0 "> MESAS </h3>
+					</div>
+					<?php for ($i = 1; $i <= 10; $i++): ?>
+						<div class="col-6 col-lg-4 mesa">
+							<a href="/mesa.php?mesa=<?php echo $i ?>T">
+								<img class="img-fluid" src="./Assets/imgs/mesas/<?php echo $i ?>.png" alt="mesa <?php echo $i ?>">
+							</a>
+						</div>
+					<?php endfor; ?>
+
+
 				</div>
-				<!-- CENTRO -->
-				<div class="col-12 col-md-8 col-lg-7">
-					<div class="container py-4">
-						<div class="row text-center ">
-							<?php
-							if ($mesa == "") {
-
-								print "<h1> Selecciona un numero de Mesa</h1>";
-							} else {
-								print "<h2 class='mb-4'>MESA $mesa</h2>";
-								print $proRepository->drawProductCard($proRepository->getAllCategoryProduct($category));
-							}
-
-							?>
+				<div class="row gy-1 py-1">
+					<?php for ($i = 1; $i <= 10; $i++): ?>
+						<div class="col-6 col-lg-4 mesa">
+							<a href="/mesa.php?mesa=<?php echo $i ?>T">
+								<img class="img-fluid" src="./Assets/imgs/mesas/<?php echo $i ?>.png" alt="mesa <?php echo $i ?>">
+							</a>
 						</div>
-					</div>
+					<?php endfor; ?>
 				</div>
-				<!-- ASIDE -->
-				<div class="col-12 col-lg-3 bg-light">
-
-					<div class="row gy-1 py-1">
-						<div class="col-12 text-center py-2">
-							<h3 class="m-0 "> MESAS </h3>
-						</div>
-						<?php for ($i = 1; $i <= 10; $i++): ?>
-							<div class="col-6 col-lg-4 mesa">
-								<a href="/mesa.php?mesa=<?php echo $i ?>T">
-									<img class="img-fluid" src="./Assets/imgs/mesas/<?php echo $i ?>.png" alt="mesa <?php echo $i ?>">
-								</a>
-							</div>
-						<?php endfor; ?>
-
-
+				<!-- Ticket -->
+				<div class="row">
+					<div class="col-12 text-center bg-dark text-white pt-2">
+						<p>TICKET<?php print "   $idTicket" ?></p>
 					</div>
-					<div class="row gy-1 py-1">
-						<?php for ($i = 1; $i <= 10; $i++): ?>
-							<div class="col-6 col-lg-4 mesa">
-								<a href="/mesa.php?mesa=<?php echo $i ?>T">
-									<img class="img-fluid" src="./Assets/imgs/mesas/<?php echo $i ?>.png" alt="mesa <?php echo $i ?>">
-								</a>
-							</div>
-						<?php endfor; ?>
-					</div>
-					<!-- Ticket -->
-					<div class="row">
-						<div class="col-12 text-center bg-dark text-white pt-2">
-							<p>TICKET<?php print "   $idTicket" ?></p>
-						</div>
-						<div class="row ticket text-center">
-							<div class="col flex-column ">
-								<?php print $tickRepository->drawPreticket($idTicket) ?>
+					<div class="row ticket text-center mt-2">
+						<div class="col flex-column ">
+							<?php print $tickRepository->drawPreticket($idTicket) ?>
 
 
-								<?php if (!empty($tickRepository->getPreticket($idTicket))):
-									print "<button class='btn btn-dark bticket' id='open-popup'>Detalles del ticket</button>";
-								endif; ?>
-								<div class="popup-overlay"></div>
-								<div class="popup">
-									<button id="close-popup" style="float:right;margin-bottom:20px;">X</button>
-									<h2><?= "TICKET" . "\n" . $mesa ?></h2>
-									<p>
-										<?= $tickRepository->drawTicket($idTicket) ?>
-									</p>
-									<br>
-									<a href="cerradoTicket.php?id=<?php echo $idTicket; ?>"><button class="btn btn-dark">Enviar</button></a>
-									</p>
-								</div>
+							<?php if (!empty($tickRepository->getPreticket($idTicket))):
+								print "<button class='btn btn-dark bticket' id='open-popup'>Detalles del ticket</button>";
+							endif; ?>
+							<div class="popup-overlay"></div>
+							<div class="popup">
+								<button id="close-popup" style="float:right;margin-bottom:20px;">X</button>
+								<h2><?= "TICKET" . "\n" . $mesa ?></h2>
+								<p>
+									<?= $tickRepository->drawTicket($idTicket) ?>
+								</p>
+								<br>
+								<a href="cerradoTicket.php?id=<?php echo $idTicket; ?>"><button class="btn btn-dark">Enviar</button></a>
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 	</main>
 	<script src="./Assets/js/index.js"></script>
 	<script src="./Assets/js/PopUp.js"></script>
