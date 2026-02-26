@@ -8,6 +8,13 @@
 
 ---
 
+## 📸 Demostración Visual
+*(Nota: Este proyecto requiere un entorno LAMP/WAMP/XAMPP local para la ejecución de la base de datos).*
+
+![Demo del TPV](Documentos_externos/TPV_view.gif)
+
+---
+
 ## 🛠️ Stack Tecnológico y Conceptos
 
 * **Backend:** PHP Nativo (Vanilla PHP).
@@ -24,12 +31,7 @@
 
 ---
 
-## 📸 Demostración Visual
-*(Nota: Este proyecto requiere un entorno LAMP/WAMP/XAMPP local para la ejecución de la base de datos).*
 
-> **Tip:** Quique, si puedes, añade aquí una captura de pantalla de tu código o de la tabla de productos. ¡Visualmente ayuda mucho!
-
----
 
 ## ⚙️ Configuración Local
 
