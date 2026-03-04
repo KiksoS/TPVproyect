@@ -9,7 +9,7 @@
 ---
 
 ## 📸 Demostración Visual
-*(Nota: Este proyecto requiere un entorno LAMP/WAMP/XAMPP local para la ejecución de la base de datos).*
+
 
 ![Demo del TPV](Documentos_externos/TPV_view.gif)
 
